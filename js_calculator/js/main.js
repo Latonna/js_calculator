@@ -9,9 +9,8 @@ for (let i = 0; i < arr.length; i++) {
 		el.value = j;
 		select.appendChild(el);
 	}
-
 }
-
+const popup = document.getElementById('popup');
 document.getElementById('submit').addEventListener('click', function (e) {
 	e.preventDefault();
 
@@ -20,26 +19,39 @@ document.getElementById('submit').addEventListener('click', function (e) {
 
 	let square = w.value * h.value;
 
-	let piecesTotal  = square / 4;
-	let packsOf8 = Math.ceil(piecesTotal  / 8);
-	let pсsIn8Packs  = packsOf8 * 8;
-	
+	let piecesTotal = square / 4;
+	let packsOf8 = Math.ceil(piecesTotal / 8);
+	let pсsIn8Packs = packsOf8 * 8;
+
 	let counter8 = packsOf8;
 	let counter6 = 0;
-	
+
 	for (let i = 0; i < packsOf8; i++) {
-		if (pсsIn8Packs  > piecesTotal ) {
-			pсsIn8Packs  -= 2;
+		if (pсsIn8Packs > piecesTotal) {
+			pсsIn8Packs -= 2;
 			counter8--;
 			counter6++;
-			if (pсsIn8Packs  == piecesTotal ) break;
-		} else if (pсsIn8Packs  == piecesTotal ) {
+			if (pсsIn8Packs == piecesTotal) break;
+		} else if (pсsIn8Packs == piecesTotal) {
 			break;
-		} else if (pсsIn8Packs  < piecesTotal ) {
-			counter8++;
+		} else if (pсsIn8Packs < piecesTotal) {
 			counter6--;
+			counter8++;
 			break;
 		}
 	}
 	console.log(`You will need ${counter6} packs of 6pcs, ${counter8} packs of 8pcs`);
+
+	let text = document.getElementById('popup__text');
+	text.textContent = `You will need ${counter6} packs of 6pcs, ${counter8} packs of 8pcs`;
+
+	popup.classList.add('open');
+
 });
+
+document.getElementById('popup_close').addEventListener('click', function (e) {
+	e.preventDefault();
+	popup.classList.remove('open');
+})
+
+
